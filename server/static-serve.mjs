@@ -31,9 +31,9 @@ const staticHandler = sirv(root, {
 })
 
 const server = http.createServer((req, res) => {
-  const url = req.url.split('?')[0]
+  const pathname = (req.url ?? '').split('?')[0].replace(/\/$/, '') || '/'
 
-  if (url === '/api/visits' && req.method === 'GET') {
+  if (pathname === '/api/visits' && req.method === 'GET') {
     const count = readCount() + 1
     writeCount(count)
     res.writeHead(200, {
