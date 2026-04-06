@@ -28,6 +28,7 @@ export const SITE_SEED: SiteContent = {
     kicker: 'Pasto, Nariño',
     sub: 'Diseño eléctrico, cumplimiento RETIE y ejecución profesional.',
     subSecondary: 'Soluciones completas para vivienda y comercio',
+    coverage: 'Atendemos en todo el sur de Colombia y Ecuador.',
     ctaCallLabel: 'Llamar ahora',
   },
   mainServices: [

@@ -53,6 +53,8 @@ export const siteContentSchema = z.object({
     kicker: z.string(),
     sub: z.string(),
     subSecondary: z.string(),
+    /** Cobertura / zona de servicio (hero, estilo distinto al bloque anterior). */
+    coverage: z.string(),
     ctaCallLabel: z.string(),
   }),
   mainServices: z.array(serviceCardSchema),

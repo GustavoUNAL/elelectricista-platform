@@ -132,6 +132,12 @@ export function LandingPage() {
             <motion.p className="text-pretty" variants={vItem}>
               {data.hero.subSecondary}
             </motion.p>
+            <motion.p
+              className="text-pretty border-t border-border/50 pt-3 text-sm font-mono font-semibold leading-snug text-accent sm:text-[0.9375rem]"
+              variants={vItem}
+            >
+              {data.hero.coverage}
+            </motion.p>
           </motion.div>
           <motion.div
             className="flex flex-col gap-3 sm:flex-row sm:flex-wrap"
@@ -252,18 +258,15 @@ export function LandingPage() {
 
       <Section id="construccion" variant="alt">
         <div className="container-app">
-          <motion.div
-            className="mb-6 sm:mb-8"
+          <motion.h2
+            className="mb-6 text-xl font-bold tracking-tight text-foreground sm:mb-8 sm:text-2xl md:text-3xl"
             variants={vUp}
             initial="hidden"
             whileInView="show"
             viewport={view}
           >
-            <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
-              El Electricista
-            </h2>
-            <p className="mt-2 text-base text-muted sm:text-lg">Construcción y obra liviana</p>
-          </motion.div>
+            Construcción y obra liviana
+          </motion.h2>
           <motion.div
             className="flex flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-5"
             variants={vStagger}

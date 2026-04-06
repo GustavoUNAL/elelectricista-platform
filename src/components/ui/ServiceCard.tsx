@@ -23,8 +23,8 @@ function ServiceCardTypewriterLead({
     return (
       <div
         className={cn(
-          'mt-4 min-h-[2.75rem] border-t border-border/60 pt-3 sm:min-h-[2.5rem]',
-          compact && 'mt-3 min-h-[2.5rem] pt-2.5',
+          'mt-4 min-h-[5rem] border-t border-border/60 pt-3 sm:min-h-[5.25rem]',
+          compact && 'mt-3 min-h-[4.5rem] pt-2.5 sm:min-h-[4.75rem]',
         )}
         aria-hidden
       />
@@ -39,8 +39,8 @@ function TypewriterLeadInner({ text, compact }: { text: string; compact?: boolea
   return (
     <p
       className={cn(
-        'mt-4 border-t border-border/60 pt-3 text-xs leading-snug sm:text-[0.8125rem]',
-        compact && 'mt-3 pt-2.5',
+        'mt-4 min-h-[5rem] border-t border-border/60 pt-3 text-xs leading-snug sm:min-h-[5.25rem] sm:text-[0.8125rem]',
+        compact && 'mt-3 min-h-[4.5rem] pt-2.5 sm:min-h-[4.75rem]',
       )}
     >
       <span
