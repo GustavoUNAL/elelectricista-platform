@@ -68,9 +68,10 @@ export function VisitorCounter() {
         {error ? (
           <span className="mx-auto block max-w-md text-pretty text-muted">
             No hubo respuesta JSON en <code className="text-foreground/90">/api/visits</code>. Comprueba en el servidor:{' '}
-            <code className="text-foreground/90">curl -sS http://127.0.0.1:4173/api/visits</code>, PM2 con{' '}
-            <code className="text-foreground/90">server/static-serve.mjs</code> y nginx en{' '}
-            <code className="text-foreground/90">proxy_pass</code> al puerto correcto (4173), no 5173.
+            <code className="text-foreground/90">curl -sS http://127.0.0.1:4174/api/visits</code>, PM2 con{' '}
+            <code className="text-foreground/90">server/static-serve.mjs</code> (puerto 4174, no{' '}
+            <code className="text-foreground/90">vite preview</code> en 4173) y nginx con{' '}
+            <code className="text-foreground/90">proxy_pass</code> a ese puerto.
           </span>
         ) : count === null ? (
           <span className="text-muted/80">Visitas: …</span>

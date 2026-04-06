@@ -33,6 +33,11 @@ function visitCounterPlugin(): Plugin {
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), visitCounterPlugin()],
+  /** `vite preview` queda en 4173; en el VPS el sitio real debe ser `node server/static-serve.mjs` (p. ej. 4174 vía PM2). */
+  preview: {
+    port: 4173,
+    strictPort: false,
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

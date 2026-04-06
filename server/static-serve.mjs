@@ -65,7 +65,10 @@ const server = http.createServer((req, res) => {
   })
 })
 
-const port = Number(process.env.PORT || 4173)
+/** 4174 por defecto: el 4173 lo usa `vite preview` y devuelve HTML para /api/visits. */
+const port = Number(process.env.PORT || 4174)
 server.listen(port, '0.0.0.0', () => {
-  console.log(`[elelectricista] http://0.0.0.0:${port} (dist + /api/visits)`)
+  console.log(
+    `[elelectricista] static-serve OK — puerto ${port} (JSON en GET /api/visits + dist). NO es vite preview.`,
+  )
 })
