@@ -10,10 +10,9 @@ export const SITE_SEED: SiteContent = {
   contact: {
     phoneDisplay: '+57 320 790 9835',
     phoneTel: '+573207909835',
-    phoneSecondaryDisplay: '+57 318 107 8683',
-    phoneSecondaryTel: '+573181078683',
     whatsappUrl: 'https://wa.me/573207909835',
-    whatsappPrefillMessage: 'Hola, quiero solicitar una cotización.',
+    whatsappPrefillMessage:
+      'Hola, El Electricista. Quiero cotizar un proyecto nuevo o una remodelación. ¿Me pueden orientar?',
     whatsappCtaLabel: 'Solicita tu cotización',
     city: 'Pasto',
     region: 'Nariño',
@@ -59,7 +58,7 @@ export const SITE_SEED: SiteContent = {
       title: 'Almacenamiento y respaldo',
       animatedLead: 'Garantiza continuidad del servicio y energía disponible en todo momento',
       items: [
-        'Baterías para guardar y usar energía',
+        'Baterías para almacenar y usar energía',
         'Respaldo para casa o negocio',
         'Plantas eléctricas y tableros ATS',
         'Mantenimiento de equipos',
