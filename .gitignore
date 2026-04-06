@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Contador de visitas (generado en el servidor)
+data/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

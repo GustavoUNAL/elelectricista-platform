@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'motion/react'
 import type { SiteContent } from '@/schemas/site'
+import { VisitorCounter } from '@/components/ui/VisitorCounter'
 import { EASE_SMOOTH } from '@/lib/motion-presets'
 
 export function SiteFooter({ content }: { content: SiteContent }) {
@@ -56,6 +57,7 @@ export function SiteFooter({ content }: { content: SiteContent }) {
               </p>
             ))}
           </div>
+          <VisitorCounter />
         </div>
       </div>
     </motion.footer>
