@@ -20,7 +20,7 @@ export function Section({
         variant === 'alt' && 'bg-bg-elevated',
         variant === 'highlight' && 'border-y border-border',
         variant === 'cta' &&
-          'border-t border-border bg-gradient-to-b from-bg to-[#0e1218] py-[4.5rem]',
+          'border-t border-border bg-gradient-to-b from-bg to-cta-section-end py-[4.5rem]',
         className,
       )}
     >

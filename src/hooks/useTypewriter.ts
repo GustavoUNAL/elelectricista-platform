@@ -5,6 +5,11 @@ export function useTypewriter(text: string, speedMs = 85) {
   const [done, setDone] = useState(false)
 
   useEffect(() => {
+    setLen(0)
+    setDone(false)
+  }, [text])
+
+  useEffect(() => {
     if (len >= text.length) {
       const t = window.setTimeout(() => setDone(true), 600)
       return () => window.clearTimeout(t)

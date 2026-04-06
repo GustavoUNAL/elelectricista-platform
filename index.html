@@ -4,11 +4,27 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c0f14" />
     <meta
       name="description"
       content="Ingeniero electricista en Pasto. Instalaciones eléctricas, energía solar, RETIE y construcción en estructura liviana."
     />
     <title>El Electricista — Instalaciones eléctricas y construcción | Pasto</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('elelectricista-theme')
+          var light = t === 'light'
+          document.documentElement.dataset.theme = light ? 'light' : 'dark'
+          document.documentElement.style.colorScheme = light ? 'light' : 'dark'
+          var m = document.querySelector('meta[name="theme-color"]')
+          if (m) m.setAttribute('content', light ? '#f4f6fb' : '#0c0f14')
+        } catch (e) {
+          document.documentElement.dataset.theme = 'dark'
+          document.documentElement.style.colorScheme = 'dark'
+        }
+      })()
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

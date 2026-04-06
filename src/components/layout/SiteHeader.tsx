@@ -1,8 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { motion, useReducedMotion } from 'motion/react'
 import { cn } from '@/lib/cn'
+import { EASE_SMOOTH } from '@/lib/motion-presets'
+import { ThemeToggle } from '@/components/layout/ThemeToggle'
 
 const nav = [
+  { href: '/#problemas', label: 'Problemas' },
   { href: '/#servicios', label: 'Servicios' },
   { href: '/#construccion', label: 'Construcción' },
   { href: '/#proceso', label: 'Proceso' },
@@ -11,16 +15,29 @@ const nav = [
   { href: '/#contacto', label: 'Contacto' },
 ]
 
-export function SiteHeader({ brandName }: { brandName: string }) {
+export function SiteHeader({
+  brandName,
+}: {
+  brandName: string
+}) {
   const [open, setOpen] = useState(false)
+  const reduce = useReducedMotion() ?? false
 
   return (
     <>
-      <header className="sticky top-0 z-[100] flex h-16 items-center justify-between border-b border-border bg-bg/85 px-5 backdrop-blur-md">
-        <Link to="/" className="text-base font-bold tracking-tight text-foreground hover:text-accent hover:no-underline">
+      <motion.header
+        className="sticky top-0 z-[100] flex h-16 min-w-0 items-center gap-2 border-b border-border bg-bg/85 px-3 backdrop-blur-md sm:gap-3 sm:px-5"
+        initial={reduce ? false : { y: -12, opacity: 0.88 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: reduce ? 0 : 0.5, ease: EASE_SMOOTH }}
+      >
+        <Link
+          to="/"
+          className="min-w-0 flex-1 truncate text-sm font-bold tracking-tight text-foreground hover:text-accent hover:no-underline sm:text-base"
+        >
           {brandName}
         </Link>
-        <nav className="hidden items-center gap-6 md:flex" aria-label="Principal">
+        <nav className="hidden min-w-0 items-center gap-6 md:flex" aria-label="Principal">
           {nav.map((item) => (
             <a
               key={item.href}
@@ -31,9 +48,10 @@ export function SiteHeader({ brandName }: { brandName: string }) {
             </a>
           ))}
         </nav>
+        <ThemeToggle />
         <button
           type="button"
-          className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="flex h-11 w-11 shrink-0 flex-col items-center justify-center gap-1.5 md:hidden"
           aria-expanded={open}
           aria-controls="nav-mobile"
           aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
@@ -53,7 +71,7 @@ export function SiteHeader({ brandName }: { brandName: string }) {
             )}
           />
         </button>
-      </header>
+      </motion.header>
       <div
         id="nav-mobile"
         className={cn(

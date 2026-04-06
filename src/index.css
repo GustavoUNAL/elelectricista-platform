@@ -14,9 +14,43 @@
   --color-accent-dim: rgba(245, 166, 35, 0.15);
   --color-accent-glow: rgba(245, 166, 35, 0.35);
   --color-blue: #3d8bfd;
+  /* Texto sobre botones accent / fondos naranja */
+  --color-on-accent: #1a1205;
+  --color-accent-hover: #ffb83d;
+  /* Fondos y degradados que antes estaban fijos en hex */
+  --color-footer-bg: #080a0d;
+  --color-hero-end: #0a0c10;
+  --color-surface-deep: #0c1018;
+  --color-portfolio-shade: #1c2533;
+  --color-cta-section-end: #0e1218;
+  --color-blue-highlight: #6babff;
+  --color-accent-deep: #c77e12;
 
   --radius-lg: 12px;
   --header-h: 4rem;
+}
+
+/* Modo claro: mismas claves semánticas, valores claros */
+html[data-theme='light'] {
+  --color-bg: #f4f6fb;
+  --color-bg-elevated: #e8ecf4;
+  --color-surface: #ffffff;
+  --color-border: rgba(15, 23, 42, 0.1);
+  --color-foreground: #0f172a;
+  --color-muted: #64748b;
+  --color-accent: #d97706;
+  --color-accent-dim: rgba(217, 119, 6, 0.14);
+  --color-accent-glow: rgba(217, 119, 6, 0.3);
+  --color-blue: #2563eb;
+  --color-on-accent: #1a1205;
+  --color-accent-hover: #ea580c;
+  --color-footer-bg: #e2e8f0;
+  --color-hero-end: #dce3f0;
+  --color-surface-deep: #eef2f8;
+  --color-portfolio-shade: #cbd5e1;
+  --color-cta-section-end: #e8edf5;
+  --color-blue-highlight: #60a5fa;
+  --color-accent-deep: #b45309;
 }
 
 @layer base {
@@ -24,7 +58,7 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply m-0 min-h-screen bg-bg font-sans text-foreground antialiased;
+    @apply m-0 min-h-screen bg-bg font-sans text-foreground antialiased transition-colors duration-300;
   }
 }
 
@@ -49,49 +83,4 @@
 .typewriter-done .typewriter-cursor {
   animation: none;
   opacity: 0.6;
-}
-
-/* TanStack Query Devtools (solo DEV): escala, tipografía y armonía claro/oscuro */
-.tsqd-parent-container {
-  font-size: 14px;
-  font-family: var(--font-sans), 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-  color-scheme: light dark;
-  --tsqd-font-size: 14px;
-}
-
-/* Sin marca TanStack / “React Query v5” en la cabecera; solo cierre discreto */
-.tsqd-parent-container .tsqd-text-logo-query-flavor {
-  display: none !important;
-}
-
-.tsqd-parent-container .tsqd-text-logo-tanstack {
-  display: inline-flex !important;
-  font-size: 0 !important;
-  line-height: 0 !important;
-  background: none !important;
-  color: transparent !important;
-  -webkit-text-fill-color: transparent !important;
-  min-width: 2.25rem;
-  min-height: 2.25rem;
-  align-items: center;
-  justify-content: center;
-}
-
-.tsqd-parent-container .tsqd-text-logo-tanstack * {
-  display: none !important;
-}
-
-.tsqd-parent-container .tsqd-text-logo-tanstack::after {
-  content: '×';
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.35rem;
-  font-weight: 300;
-  line-height: 1;
-  color: var(--color-muted, #9aa3b2);
-}
-
-.tsqd-parent-container input[name='tsqd-query-filter-input'] {
-  font-size: 0.95em;
 }

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { SiteFooter } from '@/components/layout/SiteFooter'
+import { FloatingQuoteCta } from '@/components/layout/FloatingQuoteCta'
 import { useSiteContent } from '@/hooks/useSiteContent'
 
 export function RootLayout() {
@@ -37,8 +38,11 @@ export function RootLayout() {
   return (
     <>
       <SiteHeader brandName={data.brand.name} />
-      <Outlet context={data} />
+      <div className="pb-16 sm:pb-20">
+        <Outlet context={data} />
+      </div>
       <SiteFooter content={data} />
+      <FloatingQuoteCta content={data} />
     </>
   )
 }
