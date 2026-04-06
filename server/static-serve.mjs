@@ -11,7 +11,8 @@ const countFile = join(dataDir, 'visits.json')
 
 function readCount() {
   try {
-    const n = JSON.parse(readFileSync(countFile, 'utf8')).count
+    const raw = JSON.parse(readFileSync(countFile, 'utf8'))
+    const n = Number(raw.count)
     return Number.isFinite(n) ? n : 0
   } catch {
     return 0
@@ -33,14 +34,28 @@ const staticHandler = sirv(root, {
 const server = http.createServer((req, res) => {
   const pathname = (req.url ?? '').split('?')[0].replace(/\/$/, '') || '/'
 
-  if (pathname === '/api/visits' && req.method === 'GET') {
-    const count = readCount() + 1
-    writeCount(count)
-    res.writeHead(200, {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Cache-Control': 'no-store',
-    })
-    res.end(JSON.stringify({ count }))
+  if (pathname === '/api/visits') {
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204, {
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Max-Age': '86400',
+      })
+      res.end()
+      return
+    }
+    if (req.method === 'GET') {
+      const count = readCount() + 1
+      writeCount(count)
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store',
+      })
+      res.end(JSON.stringify({ count }))
+      return
+    }
+    res.statusCode = 405
+    res.end()
     return
   }
 

@@ -1,9 +1,13 @@
-/** URL del endpoint de visitas: override en build o relativo al origen (respeta `base` de Vite). */
-export function getVisitCounterApiUrl(): string {
+/** Rutas a probar (primera que responda JSON válido gana). */
+export function getVisitCounterApiUrls(): string[] {
   const override = import.meta.env.VITE_VISIT_COUNTER_URL?.trim()
-  if (override) return override
+  if (override) return [override]
 
-  const base = import.meta.env.BASE_URL || '/'
-  const originBase = base.endsWith('/') ? base : `${base}/`
-  return new URL('api/visits', `${window.location.origin}${originBase}`).href
+  const rawBase = import.meta.env.BASE_URL ?? '/'
+  const prefix = rawBase === '/' ? '' : rawBase.replace(/\/$/, '')
+  const withBase = `${prefix ? `/${prefix.replace(/^\//, '')}` : ''}/api/visits`.replace(/\/{2,}/g, '/')
+
+  const origin = window.location.origin
+  const urls = [`${origin}${withBase}`, `${origin}/api/visits`]
+  return [...new Set(urls)]
 }
