@@ -1,6 +1,6 @@
 /**
  * Fija el contador para que la próxima visita muestre el número indicado.
- * Uso: node scripts/seed-visits.mjs 100000
+ * Uso: node scripts/seed-visits.mjs 1370
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -10,9 +10,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const DATA_DIR = path.join(__dirname, '..', 'data')
 const VISITS_FILE = path.join(DATA_DIR, 'visits.json')
 
-const display = Number(process.argv[2] ?? 100000)
+const display = Number(process.argv[2] ?? 1370)
 if (!Number.isFinite(display) || display < 0) {
-  console.error('Indica un número válido, p. ej.: node scripts/seed-visits.mjs 100000')
+  console.error('Indica un número válido, p. ej.: node scripts/seed-visits.mjs 1370')
   process.exit(1)
 }
 

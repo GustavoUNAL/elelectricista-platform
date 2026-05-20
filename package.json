@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node server/static-serve.mjs",
-    "seed:visits": "node scripts/seed-visits.mjs 100000"
+    "seed:visits": "node scripts/seed-visits.mjs 1370"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",

@@ -67,11 +67,11 @@ export function SiteFooter({ content }: { content: SiteContent }) {
             <div className="flex flex-col items-center gap-6 sm:gap-7">
               <VisitorCounter className="w-full max-w-md" />
               <img
-                src="/elelectricista-logo.png"
+                src="/250299CF-E5D2-46E6-8772-79F3C597F247.PNG"
                 alt={`${brand.name} — ingeniería, instalaciones y remodelaciones`}
                 className="h-auto w-full max-w-[10.5rem] object-contain sm:max-w-[12rem] lg:max-w-[13rem]"
-                width={387}
-                height={418}
+                width={512}
+                height={512}
                 loading="lazy"
                 decoding="async"
               />

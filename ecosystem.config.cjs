@@ -13,8 +13,8 @@ module.exports = {
       max_memory_restart: '250M',
       env: {
         PORT: 4174,
-        /** Sin visits.json: guarda 99999 → la web muestra 100000 en la primera visita. */
-        INITIAL_VISIT_COUNT: '99999',
+        /** Sin visits.json: guarda 1369 → la web muestra 1370 en la primera visita. */
+        INITIAL_VISIT_COUNT: '1369',
       },
     },
   ],
