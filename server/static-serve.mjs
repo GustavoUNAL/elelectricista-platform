@@ -67,6 +67,15 @@ function writeVisits(count) {
   fs.writeFileSync(VISITS_FILE, JSON.stringify({ count }))
 }
 
+/** Si no hay archivo, usa INITIAL_VISIT_COUNT (valor antes del +1 de cada visita). */
+function ensureVisitsFile() {
+  if (fs.existsSync(VISITS_FILE)) return
+  const raw = process.env.INITIAL_VISIT_COUNT
+  const n = raw !== undefined && raw !== '' ? Number(raw) : 0
+  const stored = Number.isFinite(n) ? Math.max(0, Math.trunc(n)) : 0
+  writeVisits(stored)
+}
+
 /**
  * @returns {boolean} true si la petición fue manejada (incl. 405).
  */
@@ -225,7 +234,10 @@ server.on('clientError', (_err, socket) => {
   socket.end('HTTP/1.1 400 Bad Request\r\n\r\n')
 })
 
+ensureVisitsFile()
+
 const port = Number(process.env.PORT || DEFAULT_PORT)
 server.listen(port, '0.0.0.0', () => {
-  console.log(`[static-serve] listening ${port} | dist=${DIST} | visits=${VISITS_FILE}`)
+  const current = fs.existsSync(VISITS_FILE) ? readVisits() : 0
+  console.log(`[static-serve] listening ${port} | dist=${DIST} | visits=${VISITS_FILE} (stored=${current})`)
 })

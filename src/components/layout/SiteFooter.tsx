@@ -57,7 +57,26 @@ export function SiteFooter({ content }: { content: SiteContent }) {
               </p>
             ))}
           </div>
-          <VisitorCounter />
+          <motion.div
+            className="mt-8 border-t border-border/50 pt-8"
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{ duration: reduce ? 0 : 0.45, ease: EASE_SMOOTH }}
+          >
+            <div className="flex flex-col items-center gap-6 sm:gap-7">
+              <VisitorCounter className="w-full max-w-md" />
+              <img
+                src="/elelectricista-logo.png"
+                alt={`${brand.name} — ingeniería, instalaciones y remodelaciones`}
+                className="h-auto w-full max-w-[10.5rem] object-contain sm:max-w-[12rem] lg:max-w-[13rem]"
+                width={387}
+                height={418}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
     </motion.footer>

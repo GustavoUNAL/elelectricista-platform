@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getVisitCounterApiUrls } from '@/lib/visitCounterApi'
+import { cn } from '@/lib/cn'
 
 function parseVisitPayload(raw: string, contentType: string): { count: number } | null {
   const trimmed = raw.trimStart()
@@ -37,7 +38,7 @@ async function fetchVisitCount(signal: AbortSignal): Promise<number | null> {
   return null
 }
 
-export function VisitorCounter() {
+export function VisitorCounter({ className }: { className?: string }) {
   const [count, setCount] = useState<number | null>(null)
   const [error, setError] = useState(false)
 
@@ -63,7 +64,7 @@ export function VisitorCounter() {
   }, [])
 
   return (
-    <div className="mt-8 border-t border-border/50 pt-6 text-center">
+    <div className={cn('text-center', className)}>
       <p className="text-xs text-muted sm:text-sm">
         {error ? (
           <span className="mx-auto block max-w-md text-pretty text-muted">
