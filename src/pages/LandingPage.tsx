@@ -59,29 +59,47 @@ export function LandingPage() {
         aria-labelledby="hero-title"
       >
         <div className="pointer-events-none absolute inset-0" aria-hidden>
-          <motion.div
-            className="absolute top-[10%] right-[-10%] h-[60vh] w-[80vw] rounded-full bg-blue/10 blur-3xl"
-            animate={
-              reduce
-                ? { opacity: 0.45, scale: 1 }
-                : { opacity: [0.35, 0.55, 0.35], scale: [1, 1.05, 1] }
-            }
-            transition={
-              reduce ? { duration: 0 } : { duration: 10, repeat: Infinity, ease: 'easeInOut' }
-            }
-          />
-          <motion.div
-            className="absolute bottom-[5%] left-[-15%] h-[50vh] w-[70vw] rounded-full bg-accent/8 blur-3xl"
-            animate={
-              reduce
-                ? { opacity: 0.35, scale: 1 }
-                : { opacity: [0.25, 0.45, 0.25], scale: [1, 1.08, 1] }
-            }
-            transition={
-              reduce ? { duration: 0 } : { duration: 12, repeat: Infinity, ease: 'easeInOut' }
-            }
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-bg to-hero-end" />
+          {data.hero.imageUrl ? (
+            <>
+              <img
+                src={data.hero.imageUrl}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
+                width={1920}
+                height={1280}
+                fetchPriority="high"
+                decoding="async"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/92 to-bg/55 sm:via-bg/88 sm:to-bg/40" />
+              <div className="absolute inset-0 bg-gradient-to-b from-bg/70 via-transparent to-hero-end" />
+            </>
+          ) : (
+            <>
+              <motion.div
+                className="absolute top-[10%] right-[-10%] h-[60vh] w-[80vw] rounded-full bg-blue/10 blur-3xl"
+                animate={
+                  reduce
+                    ? { opacity: 0.45, scale: 1 }
+                    : { opacity: [0.35, 0.55, 0.35], scale: [1, 1.05, 1] }
+                }
+                transition={
+                  reduce ? { duration: 0 } : { duration: 10, repeat: Infinity, ease: 'easeInOut' }
+                }
+              />
+              <motion.div
+                className="absolute bottom-[5%] left-[-15%] h-[50vh] w-[70vw] rounded-full bg-accent/8 blur-3xl"
+                animate={
+                  reduce
+                    ? { opacity: 0.35, scale: 1 }
+                    : { opacity: [0.25, 0.45, 0.25], scale: [1, 1.08, 1] }
+                }
+                transition={
+                  reduce ? { duration: 0 } : { duration: 12, repeat: Infinity, ease: 'easeInOut' }
+                }
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-bg to-hero-end" />
+            </>
+          )}
         </div>
         <motion.div
           className="relative w-full min-w-0 max-w-[720px]"
@@ -393,7 +411,7 @@ export function LandingPage() {
             {data.portfolio.intro}
           </motion.p>
           <motion.div
-            variants={revealScale(reduce)}
+            variants={vUp}
             initial="hidden"
             whileInView="show"
             viewport={view}

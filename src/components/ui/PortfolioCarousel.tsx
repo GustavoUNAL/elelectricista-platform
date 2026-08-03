@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { GalleryItem } from '@/schemas/site'
 import { cn } from '@/lib/cn'
 
@@ -11,16 +11,18 @@ type PortfolioCarouselProps = {
 const SCROLL_GAP_PX = 20
 
 const navBtnClass = cn(
-  'hidden h-11 w-11 shrink-0 items-center justify-center self-center rounded-full border border-border',
+  'inline-flex h-11 w-11 shrink-0 items-center justify-center self-center rounded-full border border-border',
   'bg-bg-elevated/95 text-lg leading-none text-foreground shadow-md backdrop-blur-sm transition-colors',
-  'hover:border-accent/40 hover:text-accent lg:inline-flex',
+  'hover:border-accent/40 hover:text-accent',
 )
 
 export function PortfolioCarousel({ items, categoryLabels }: PortfolioCarouselProps) {
   const scrollerRef = useRef<HTMLDivElement>(null)
+  const interactionWrapRef = useRef<HTMLDivElement>(null)
   const pausedRef = useRef(false)
   const reducedMotionRef = useRef(false)
   const loopRafRef = useRef(0)
+  const [activeIndex, setActiveIndex] = useState(0)
 
   const loopItems = useMemo(() => {
     if (items.length <= 1) return items
@@ -29,6 +31,8 @@ export function PortfolioCarousel({ items, categoryLabels }: PortfolioCarouselPr
       ...items.map((item, i) => ({ ...item, id: `${item.id}-loop-${i}` })),
     ]
   }, [items])
+
+  const firstIds = useMemo(() => new Set(items.slice(0, 3).map((i) => i.id)), [items])
 
   const enableLoop = items.length > 1
 
@@ -60,12 +64,24 @@ export function PortfolioCarousel({ items, categoryLabels }: PortfolioCarouselPr
     }
   }, [enableLoop])
 
-  const scrollByDir = useCallback((dir: -1 | 1) => {
+  const syncActiveIndex = useCallback(() => {
     const el = scrollerRef.current
-    if (!el) return
-    const step = getStep() || Math.min(el.clientWidth * 0.8, 400)
-    el.scrollBy({ left: dir * step, behavior: 'smooth' })
-  }, [getStep])
+    if (!el || items.length === 0) return
+    const step = getStep()
+    if (step <= 0) return
+    const raw = Math.round(el.scrollLeft / step)
+    setActiveIndex(((raw % items.length) + items.length) % items.length)
+  }, [getStep, items.length])
+
+  const scrollByDir = useCallback(
+    (dir: -1 | 1) => {
+      const el = scrollerRef.current
+      if (!el) return
+      const step = getStep() || Math.min(el.clientWidth * 0.8, 400)
+      el.scrollBy({ left: dir * step, behavior: 'smooth' })
+    },
+    [getStep],
+  )
 
   useEffect(() => {
     const el = scrollerRef.current
@@ -73,7 +89,10 @@ export function PortfolioCarousel({ items, categoryLabels }: PortfolioCarouselPr
 
     const onScroll = () => {
       cancelAnimationFrame(loopRafRef.current)
-      loopRafRef.current = requestAnimationFrame(() => normalizeLoopPosition())
+      loopRafRef.current = requestAnimationFrame(() => {
+        normalizeLoopPosition()
+        syncActiveIndex()
+      })
     }
 
     el.addEventListener('scroll', onScroll, { passive: true })
@@ -81,7 +100,7 @@ export function PortfolioCarousel({ items, categoryLabels }: PortfolioCarouselPr
       el.removeEventListener('scroll', onScroll)
       cancelAnimationFrame(loopRafRef.current)
     }
-  }, [enableLoop, normalizeLoopPosition])
+  }, [enableLoop, normalizeLoopPosition, syncActiveIndex])
 
   useEffect(() => {
     const el = scrollerRef.current
@@ -99,16 +118,18 @@ export function PortfolioCarousel({ items, categoryLabels }: PortfolioCarouselPr
   }, [items.length, getStep])
 
   if (items.length === 0) {
-    return null
+    return (
+      <p className="rounded-[var(--radius-lg)] border border-border bg-surface px-5 py-8 text-center text-sm text-muted">
+        Pronto publicaremos fotos de obra en esta galería.
+      </p>
+    )
   }
-
-  const interactionWrapRef = useRef<HTMLDivElement>(null)
 
   return (
     <div className="-mx-5 px-5 lg:mx-0 lg:px-0">
       <div
         ref={interactionWrapRef}
-        className="flex min-w-0 items-stretch gap-2 lg:items-center lg:gap-3"
+        className="flex min-w-0 items-stretch gap-2 sm:gap-3 lg:items-center"
         onPointerEnter={() => {
           pausedRef.current = true
         }}
@@ -145,30 +166,34 @@ export function PortfolioCarousel({ items, categoryLabels }: PortfolioCarouselPr
               role="listitem"
               data-carousel-slide
               className={cn(
-                'm-0 w-[min(22rem,calc(100vw-2.75rem))] shrink-0 snap-center',
-                'sm:w-[min(24rem,calc(100vw-3rem))]',
+                'm-0 w-[min(22rem,calc(100vw-5.5rem))] shrink-0 snap-center',
+                'sm:w-[min(24rem,calc(100vw-6rem))]',
                 'lg:w-[min(38vw,400px)]',
               )}
             >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] border border-border bg-gradient-to-br from-surface to-portfolio-shade">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
                 {item.imageUrl ? (
                   <img
                     src={item.imageUrl}
                     alt={item.caption}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
+                    className="h-full w-full object-cover opacity-100 brightness-[1.06] contrast-[1.08] saturate-[1.1]"
+                    loading={firstIds.has(item.id) ? 'eager' : 'lazy'}
+                    fetchPriority={firstIds.has(item.id) ? 'high' : undefined}
                     decoding="async"
                   />
                 ) : (
                   <div className="flex h-full items-center justify-center">
-                    <span className="text-sm font-semibold text-muted/50">Tu foto</span>
+                    <span className="text-sm font-semibold text-muted/50">Foto pendiente</span>
                   </div>
                 )}
-                <span className="absolute top-2 left-2 rounded-md bg-bg/85 px-2 py-0.5 text-xs font-medium text-muted backdrop-blur-sm">
+                <span className="absolute top-2 left-2 rounded-md bg-bg/90 px-2 py-0.5 text-xs font-medium text-foreground/90 shadow-sm backdrop-blur-sm">
                   {categoryLabels[item.category] ?? item.category}
                 </span>
               </div>
-              <figcaption className="mt-2.5 text-sm leading-snug text-muted break-words sm:mt-3">{item.caption}</figcaption>
+              <figcaption className="mt-2.5 sm:mt-3">
+                <p className="text-sm font-semibold leading-snug tracking-tight text-foreground">{item.title}</p>
+                <p className="mt-1 text-sm leading-snug text-muted break-words">{item.caption}</p>
+              </figcaption>
             </figure>
           ))}
         </div>
@@ -177,6 +202,20 @@ export function PortfolioCarousel({ items, categoryLabels }: PortfolioCarouselPr
           ›
         </button>
       </div>
+
+      {items.length > 1 ? (
+        <div className="mt-4 flex justify-center gap-1.5" aria-hidden>
+          {items.map((item, i) => (
+            <span
+              key={item.id}
+              className={cn(
+                'h-1.5 rounded-full transition-all duration-300',
+                i === activeIndex ? 'w-5 bg-accent' : 'w-1.5 bg-border',
+              )}
+            />
+          ))}
+        </div>
+      ) : null}
     </div>
   )
 }

@@ -38,7 +38,13 @@ async function fetchVisitCount(signal: AbortSignal): Promise<number | null> {
   return null
 }
 
-export function VisitorCounter({ className }: { className?: string }) {
+export function VisitorCounter({
+  className,
+  variant = 'inline',
+}: {
+  className?: string
+  variant?: 'inline' | 'panel'
+}) {
   const [count, setCount] = useState<number | null>(null)
   const [error, setError] = useState(false)
 
@@ -63,14 +69,41 @@ export function VisitorCounter({ className }: { className?: string }) {
     }
   }, [])
 
+  if (variant === 'panel') {
+    return (
+      <div className={cn('text-center', className)}>
+        {error ? (
+          <p className="text-pretty text-sm text-muted">
+            No hubo respuesta JSON en <code className="text-foreground/90">/api/visits</code>. Comprueba en el
+            servidor:{' '}
+            <code className="text-foreground/90">curl -sS http://127.0.0.1:4174/api/visits</code>, PM2 con{' '}
+            <code className="text-foreground/90">server/static-serve.mjs</code> (puerto 4174, no{' '}
+            <code className="text-foreground/90">vite preview</code> en 4173) y nginx con{' '}
+            <code className="text-foreground/90">proxy_pass</code> a ese puerto.
+          </p>
+        ) : count === null ? (
+          <p className="font-mono text-4xl font-semibold tabular-nums text-muted/50">…</p>
+        ) : (
+          <p
+            className="font-mono text-5xl font-semibold tracking-tight tabular-nums text-accent sm:text-6xl"
+            aria-live="polite"
+          >
+            {count.toLocaleString('es-CO')}
+          </p>
+        )}
+        {!error ? <p className="mt-3 text-sm text-muted">Visitas registradas</p> : null}
+      </div>
+    )
+  }
+
   return (
     <div className={cn('text-center', className)}>
       <p className="text-xs text-muted sm:text-sm">
         {error ? (
           <span className="mx-auto block max-w-md text-pretty text-muted">
-            No hubo respuesta JSON en <code className="text-foreground/90">/api/visits</code>. Comprueba en el servidor:{' '}
-            <code className="text-foreground/90">curl -sS http://127.0.0.1:4174/api/visits</code>, PM2 con{' '}
-            <code className="text-foreground/90">server/static-serve.mjs</code> (puerto 4174, no{' '}
+            No hubo respuesta JSON en <code className="text-foreground/90">/api/visits</code>. Comprueba en el
+            servidor: <code className="text-foreground/90">curl -sS http://127.0.0.1:4174/api/visits</code>, PM2
+            con <code className="text-foreground/90">server/static-serve.mjs</code> (puerto 4174, no{' '}
             <code className="text-foreground/90">vite preview</code> en 4173) y nginx con{' '}
             <code className="text-foreground/90">proxy_pass</code> a ese puerto.
           </span>

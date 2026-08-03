@@ -9,3 +9,8 @@ export const LazyServicesCatalogPage = lazy(async () => {
   const m = await import('@/pages/ServicesCatalogPage')
   return { default: m.ServicesCatalogPage }
 })
+
+export const LazyAdminPage = lazy(async () => {
+  const m = await import('@/pages/AdminPage')
+  return { default: m.AdminPage }
+})

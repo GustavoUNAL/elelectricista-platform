@@ -29,6 +29,7 @@ export const SITE_SEED: SiteContent = {
     subSecondary: 'Soluciones completas para vivienda y comercio',
     coverage: 'Atendemos en todo el sur de Colombia y Ecuador.',
     ctaCallLabel: 'Llamar ahora',
+    imageUrl: '/proyectos/hero_paneles.webp',
   },
   mainServices: [
     {
@@ -197,8 +198,43 @@ export const SITE_SEED: SiteContent = {
   portfolio: {
     title: 'Trabajos realizados',
     intro:
-      'Galería actualizada con proyectos de generación solar, tableros, calidad de energía, automatización y obra liviana — imágenes desde nuestra carpeta de obra.',
+      'Galería de obra real: generación solar, tableros, calidad de energía y automatización.',
     items: [
+      {
+        id: 'sfv-paneles-cubierta',
+        title: 'Paneles en cubierta metálica',
+        category: 'solar',
+        imageUrl: '/proyectos/paneles.jpg',
+        caption: 'Montaje de paneles solares sobre cubierta metálica corrugada.',
+      },
+      {
+        id: 'gabinete-fotovoltaico',
+        title: 'Gabinete fotovoltaico',
+        category: 'solar',
+        imageUrl: '/proyectos/gabinete.jpg',
+        caption: 'Tablero de protecciones CC/CA para sistema fotovoltaico.',
+      },
+      {
+        id: 'tablero-industrial-ms4',
+        title: 'Tablero industrial y control',
+        category: 'electrico',
+        imageUrl: '/proyectos/tablero_industrial.jpg',
+        caption: 'Distribución TD002, panel de control y acometidas en obra.',
+      },
+      {
+        id: 'medidor-electrico',
+        title: 'Medidor eléctrico',
+        category: 'electrico',
+        imageUrl: '/proyectos/medidor_electrico.jpg',
+        caption: 'Instalación de medidor protegido en caja transparente.',
+      },
+      {
+        id: 'sala-maquinas',
+        title: 'Sala de máquinas',
+        category: 'electrico',
+        imageUrl: '/proyectos/sala_maquinas.jpg',
+        caption: 'Motor de tracción, cableado y gabinete de control en sala de máquinas.',
+      },
       {
         id: 'sfv-pasto-4kw',
         title: 'Solar fotovoltaico 4 kW',
@@ -296,20 +332,6 @@ export const SITE_SEED: SiteContent = {
         category: 'general',
         imageUrl: '/proyectos/reparacion_motor.jpg',
         caption: 'Reparación y mantenimiento de motor eléctrico.',
-      },
-      {
-        id: 'estructura-liviana-obra',
-        title: 'Estructura liviana',
-        category: 'drywall',
-        imageUrl: '/proyectos/estructura_liviana.jpg',
-        caption: 'Obra en estructura liviana y espacios interiores.',
-      },
-      {
-        id: 'construccion-drywall',
-        title: 'Construcción en drywall',
-        category: 'drywall',
-        imageUrl: '/proyectos/construccion_drywall.jpg',
-        caption: 'Construcción y acabados en drywall.',
       },
     ],
   },

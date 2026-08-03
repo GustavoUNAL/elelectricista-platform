@@ -56,6 +56,8 @@ export const siteContentSchema = z.object({
     /** Cobertura / zona de servicio (hero, estilo distinto al bloque anterior). */
     coverage: z.string(),
     ctaCallLabel: z.string(),
+    /** Foto de obra a pantalla completa detrás del hero (opcional). */
+    imageUrl: z.string().optional(),
   }),
   mainServices: z.array(serviceCardSchema),
   construction: z.array(serviceCardSchema),

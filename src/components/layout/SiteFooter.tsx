@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from 'motion/react'
 import type { SiteContent } from '@/schemas/site'
-import { VisitorCounter } from '@/components/ui/VisitorCounter'
 import { EASE_SMOOTH } from '@/lib/motion-presets'
 
 export function SiteFooter({ content }: { content: SiteContent }) {
@@ -64,8 +63,7 @@ export function SiteFooter({ content }: { content: SiteContent }) {
             viewport={{ once: true, margin: '-20px' }}
             transition={{ duration: reduce ? 0 : 0.45, ease: EASE_SMOOTH }}
           >
-            <div className="flex flex-col items-center gap-6 sm:gap-7">
-              <VisitorCounter className="w-full max-w-md" />
+            <div className="flex flex-col items-center">
               <img
                 src="/250299CF-E5D2-46E6-8772-79F3C597F247.PNG"
                 alt={`${brand.name} — ingeniería, instalaciones y remodelaciones`}
